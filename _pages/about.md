@@ -19,7 +19,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false  # includes social icons at the bottom of the page
 ---
 
-Hi! 👋 I am a Master's student in [School of Computing](https://cs.kaist.ac.kr/), [KAIST](https://www.kaist.ac.kr/).
+Hi! 👋 This is Kyunghwan, a Master's student in [School of Computing](https://cs.kaist.ac.kr/), [KAIST](https://www.kaist.ac.kr/).
 
 I am part of the Human-Computer Interaction Lab ([HCIL](https://hcil.kaist.ac.kr/)), advised by professor [Geehyuk Lee](https://scholar.google.co.kr/citations?user=wBXkmcQAAAAJ).
 
