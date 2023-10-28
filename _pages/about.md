@@ -24,3 +24,5 @@ Hi! 👋 This is Kyunghwan, a Master's student in [School of Computing](https://
 I am part of the Human-Computer Interaction Lab ([HCIL](https://hcil.kaist.ac.kr/)), advised by professor [Geehyuk Lee](https://scholar.google.co.kr/citations?user=wBXkmcQAAAAJ).
 
 My research interests lie in Human‐Computer Interaction (HCI), Physical Interaction Techniques, eXtended Reality (XR), and Assistive Technology.
+
+For more detailed information about me, please refer to my [CV](https://kyunghwan.xyz/assets/pdf/CV_KyunghwanKim.pdf)!
