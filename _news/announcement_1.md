@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🎉 Our team's work was accepted to **CHI LBW '22**! *[LINK](https://doi.org/10.1145/3491101.3519719)*
+🎉 Our team's work was accepted to **CHI '22 LBW**! *[LINK](https://doi.org/10.1145/3491101.3519719)*
