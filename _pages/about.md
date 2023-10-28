@@ -16,11 +16,11 @@ profile:
 news: true  # includes a list of news items
 latest_posts: false  # includes a list of the newest posts
 selected_papers: false # includes a list of papers marked as "selected={true}"
-social: true  # includes social icons at the bottom of the page
+social: false  # includes social icons at the bottom of the page
 ---
 
 Hi! 👋 I am a Master's student in [School of Computing](https://cs.kaist.ac.kr/), [KAIST](https://www.kaist.ac.kr/).
 
-I am part of the [Human-Computer Interaction Lab (HCIL)](https://hcil.kaist.ac.kr/), advised by professor [Geehyuk Lee](https://scholar.google.co.kr/citations?user=wBXkmcQAAAAJ).
+I am part of the Human-Computer Interaction Lab ([HCIL](https://hcil.kaist.ac.kr/)), advised by professor [Geehyuk Lee](https://scholar.google.co.kr/citations?user=wBXkmcQAAAAJ).
 
 My research interests lie in Human‐Computer Interaction (HCI), Physical Interaction Techniques, eXtended Reality (XR), and Assistive Technology.
