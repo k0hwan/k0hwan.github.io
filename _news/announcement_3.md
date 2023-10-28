@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🍀 Began a new journey as an M.S. student at HCIL @KAIST!
+🍀 Began a new journey as an **M.S. student** at **[HCIL](https://hcil.kaist.ac.kr/) @KAIST**!

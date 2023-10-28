@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-😎 My first demo paper was accepted to UIST Demos '23!
+😎 My first demo paper was accepted to **UIST Demos '23**! *[LINK](https://doi.org/10.1145/3586182.3615813)*
