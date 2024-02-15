@@ -28,6 +28,6 @@ My research interests lie in **Human‐Computer Interaction (HCI)**, **Physical 
 
 For more detailed information and various extracurricular activities about me, including GDSC (Google Developer Student Clubs), Toastmasters, and G.OnNaRae, please refer to my **[CV](https://kyunghwan.xyz/assets/pdf/CV_KyunghwanKim.pdf)**!! 🙌
 
----
-
 <br>
+
+---
