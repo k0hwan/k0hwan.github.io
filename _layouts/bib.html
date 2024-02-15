@@ -3,14 +3,13 @@
 <!-- _layouts/bib.html -->
       <div class="row">
         <div class="col-sm-2">
-          <!-- Abbreviation -->
           {%- if entry.abbr -%}
             {%- if site.data.venues[entry.abbr] -%}
               {%- assign venue_style = nil -%}
               {%- if site.data.venues[entry.abbr].color != blank -%}
-                {%- assign venue_style = site.data.venues[entry.abbr].color | prepend: 'background-color:' -%}
+                {%- assign venue_style = site.data.venues[entry.abbr].color | prepend: 'style="background-color:' | append: '"' -%}
               {%- endif -%}
-              <abbr class="badge" style="{{venue_style}}"><a href="{{site.data.venues[entry.abbr].url}}">{{entry.abbr}}</a></abbr>
+                <abbr class="badge" {% if venue_style %}{{venue_style}}{% endif %}><a href="{{site.data.venues[entry.abbr].url}}">{{entry.abbr}}</a></abbr>
             {%- else -%}
               <abbr class="badge">{{entry.abbr}}</abbr>
             {%- endif -%}
@@ -21,12 +20,16 @@
             <img class="preview z-depth-1 rounded" src="{{ entry.preview }}" {% if entry.abbr %}style="margin-top: 1mm;"{% endif %}>
             {%- else -%}
               {%- assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' -%}
+              {%- assign image_style = "" -%}
+              {%- if entry.abbr -%}
+                  {%- assign image_style = "margin-top: 1mm;" -%}
+              {%- endif -%}
               {% include figure.html
               path=entry_path
               class="preview z-depth-1 rounded"
               zoomable=false
               alt=entry.preview
-              style="{% if entry.abbr %}margin-top: 1mm;{% endif %}" -%}
+              style=image_style -%}
             {%- endif -%}
           {%- endif -%}
         </div>
