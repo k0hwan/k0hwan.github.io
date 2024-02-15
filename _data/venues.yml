@@ -1,6 +1,24 @@
-"AJP":
-  url: https://aapt.scitation.org/journal/ajp
-  color: "#00369f"
+"KR":
+  color: "#134a9d"
 
-"PhysRev":
-  url: https://journals.aps.org/
+"UIST":
+  color: "#1D9A78"
+"UIST Demo":
+  color: "#1D9A78"
+
+"CHI":
+  color: "#ED7D31"
+"CHI LBW":
+  color: "#ED7D31"
+
+"PURPLE":
+  color: "#7030A0"
+
+"RED":
+  color: "#B74919"
+
+"ORANGE":
+  color: "#F19D19"
+
+"LIME":
+  color: "#8BC145"

@@ -8,15 +8,14 @@
             {%- if site.data.venues[entry.abbr] -%}
               {%- assign venue_style = nil -%}
               {%- if site.data.venues[entry.abbr].color != blank -%}
-                {%- assign venue_style = site.data.venues[entry.abbr].color | prepend: 'style="background-color:' | append: '"' -%}
+                {%- assign venue_style = site.data.venues[entry.abbr].color | prepend: 'background-color:' -%}
               {%- endif -%}
-              <abbr class="badge" {% if venue_style %}{{venue_style}}{% endif %}><a href="{{site.data.venues[entry.abbr].url}}">{{entry.abbr}}</a></abbr>
+              <abbr class="badge" style="{{venue_style}}"><a href="{{site.data.venues[entry.abbr].url}}">{{entry.abbr}}</a></abbr>
             {%- else -%}
               <abbr class="badge">{{entry.abbr}}</abbr>
             {%- endif -%}
           {%- endif -%}
 
-          <!-- Preview Image -->
           {%- if entry.preview -%}
             {% if entry.preview contains '://' -%}
             <img class="preview z-depth-1 rounded" src="{{ entry.preview }}" {% if entry.abbr %}style="margin-top: 1mm;"{% endif %}>
@@ -26,7 +25,8 @@
               path=entry_path
               class="preview z-depth-1 rounded"
               zoomable=false
-              alt=entry.preview -%}
+              alt=entry.preview
+              style="{% if entry.abbr %}margin-top: 1mm;{% endif %}" -%}
             {%- endif -%}
           {%- endif -%}
         </div>
