@@ -15,11 +15,11 @@ profile:
 
 news: true  # includes a list of news items
 latest_posts: false  # includes a list of the newest posts
-selected_papers: true # includes a list of papers marked as "selected={true}"
+selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false  # includes social icons at the bottom of the page
 ---
 
-> *" I connect **Humans** with **Computers** through novel **Physical Interaction** techniques!! "*
+*" I connect **Humans** with **Computers** through novel **Physical Interaction** techniques!! "*
 
 Hi! 👋 This is **Kyunghwan**, a Master's student in [School of Computing](https://cs.kaist.ac.kr/), [KAIST](https://www.kaist.ac.kr/).
 I am part of the Human-Computer Interaction Lab (**[HCIL](https://hcil.kaist.ac.kr/)**), advised by professor [Geehyuk Lee](https://scholar.google.co.kr/citations?user=wBXkmcQAAAAJ).
