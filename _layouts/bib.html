@@ -2,7 +2,7 @@
 ---
 <!-- _layouts/bib.html -->
       <div class="row">
-        <div class="col-sm-2 abbr">
+        <div class="col-sm-2">
           <!-- Abbreviation -->
           {%- if entry.abbr -%}
             {%- if site.data.venues[entry.abbr] -%}
@@ -19,7 +19,7 @@
           <!-- Preview Image -->
           {%- if entry.preview -%}
             {% if entry.preview contains '://' -%}
-            <img class="preview z-depth-1 rounded" src="{{ entry.preview }}">
+            <img class="preview z-depth-1 rounded" src="{{ entry.preview }}" {% if entry.abbr %}style="margin-top: 1mm;"{% endif %}>
             {%- else -%}
               {%- assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' -%}
               {% include figure.html
