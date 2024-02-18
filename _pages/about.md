@@ -21,7 +21,7 @@ social: false  # includes social icons at the bottom of the page
 
 > *" I connect **Humans** with **Computers** through novel **Physical Interaction** techniques!! "*
 
-Hi! 👋 This is **Kyunghwan**, a Master's student in **[School of Computing](https://cs.kaist.ac.kr/)**, **[KAIST](https://www.kaist.ac.kr/)**.
+Hi! 👋 This is **[Kyunghwan](https://kyunghwan.xyz/)**, a Master's student in **[School of Computing](https://cs.kaist.ac.kr/)**, **[KAIST](https://www.kaist.ac.kr/)**.
 I am part of the Human-Computer Interaction Lab (**[HCIL](https://hcil.kaist.ac.kr/)**), advised by Professor **[Geehyuk Lee](https://scholar.google.co.kr/citations?user=wBXkmcQAAAAJ)**.
 
 My research interests lie in **Human‐Computer Interaction (HCI)**, **Physical Interaction Techniques**, eXtended Reality (XR), and Assistive Technology.
