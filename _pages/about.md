@@ -31,5 +31,3 @@ Please refer to my **[CV](https://kyunghwan.xyz/assets/pdf/CV_KyunghwanKim.pdf)*
 <br>
 
 ---
-
-<br>
