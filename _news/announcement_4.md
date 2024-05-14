@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-😎 How can we overcome the thin nature of the smart glasses touchpad? Check **[Virtual Rolling Temple](https://doi.org/10.1145/3586182.3615813)** at **[UIST '23](https://uist.acm.org/2023/) Demo**!
+😎 How can we overcome the thin nature of the smart glasses touchpad? **[Virtual Rolling Temple (VRT)](https://doi.org/10.1145/3586182.3615813)** was accepted to **[UIST '23](https://uist.acm.org/2023/) Demo**!
