@@ -134,6 +134,13 @@
 
           <!-- Links/Buttons -->
           <div class="links">
+          {%- if entry.advisor %}
+            {%- if entry.advisortwo %}
+              <div> Advisor: {{ entry.advisor }}, Co-Advisor: {{ entry.advisortwo }}</div>
+            {%- else -%}
+              <div> Advisor: {{ entry.advisor }}</div>
+            {%- endif %}
+          {%- endif %}
           {%- if entry.award %}
             {% if entry.award contains 'Best' -%}
               <div>🏆 <b>{{ entry.award }}</b></div>
