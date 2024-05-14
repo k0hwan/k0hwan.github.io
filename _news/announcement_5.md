@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🌉 Excited to attend **UIST '23** and its workshop on-site in San Francisco!
+🌉 Excited to attend **[UIST '23](https://uist.acm.org/2023/)** and its GenAI workshop on-site in San Francisco!
