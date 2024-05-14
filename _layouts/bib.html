@@ -134,6 +134,15 @@
 
           <!-- Links/Buttons -->
           <div class="links">
+          {%- if entry.award %}
+            {% if entry.award contains 'Best' -%}
+              <div>🏆 <b>{{ entry.award }}</b></div>
+            {%- elsif entry.award contains 'Honor' -%}
+              <div>🏅 <b>{{ entry.award }}</b></div>
+            {%- else -%}
+              <div>🎖️ <b>{{ entry.award }}</b></div>
+            {%- endif %}
+          {%- endif %}
           {%- if entry.abstract %}
             <a class="abstract btn btn-sm z-depth-0" role="button">ABSTRACT</a>
           {%- endif %}
