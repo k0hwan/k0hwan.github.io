@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🎓 Won the **Best B.S. Thesis Poster Presentation Award (1st place)** from the School of EECS, GIST!! Enormous thanks to **[HCIS Lab](https://sites.google.com/view/gist-hcis-lab)**.
+🎓 Won the **Best [B.S. Thesis Poster](https://kyunghwan.xyz/assets/pdf/bsthesis_poster.pdf) Presentation Award (1st place)** from the School of EECS, GIST!! Enormous thanks to **[HCIS Lab](https://sites.google.com/view/gist-hcis-lab)**.
