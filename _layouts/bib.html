@@ -142,10 +142,10 @@
             {%- endif %}
           {%- endif %}
           {%- if entry.award %}
-            {% if entry.award contains 'Best' -%}
-              <div>🏆 <b>{{ entry.award }}</b></div>
-            {%- elsif entry.award contains 'Honorable' -%}
+            {% if entry.award contains 'Honor' -%}
               <div>🏅 <b>{{ entry.award }}</b></div>
+            {%- elsif entry.award contains 'Best' -%}
+              <div>🏆 <b>{{ entry.award }}</b></div>
             {%- else -%}
               <div>🎖️ <b>{{ entry.award }}</b></div>
             {%- endif %}
