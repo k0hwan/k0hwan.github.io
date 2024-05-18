@@ -16,6 +16,18 @@
             {%- endif -%}
           {%- endif -%}
 
+          {%- if entry.country -%}
+            {%- if site.data.venues[entry.country] -%}
+              {%- assign venue_style = nil -%}
+              {%- if site.data.venues[entry.country].color != blank -%}
+                {%- assign venue_style = site.data.venues[entry.country].color | prepend: 'style="background-color:' | append: '; margin-bottom: 2mm;"' -%}
+              {%- endif -%}
+              <abbr class="badge" {% if venue_style %}{{venue_style}}{% endif %}>{{entry.country}}</abbr>
+            {%- else -%}
+              <abbr class="badge">{{entry.country}}</abbr>
+            {%- endif -%}
+          {%- endif -%}
+
           <!-- Preview Image -->
           {%- if entry.preview -%}
             {% if entry.preview contains '://' -%}
@@ -43,7 +55,9 @@
             <div>🎖️ <b><span style="color: #FF6200;">{{ entry.award }}</span></b></div>
           {%- endif %}
         {%- else -%}
-          <div> &nbsp; </div>
+          {% if entry.country -%}
+            <div> &nbsp; </div>
+          {%- endif %}
         {%- endif %}
 
         <!-- Title -->
