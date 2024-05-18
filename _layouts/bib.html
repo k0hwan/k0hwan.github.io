@@ -55,7 +55,8 @@
             <div>🎖️ <b><span style="color: #FF6200;">{{ entry.award }}</span></b></div>
           {%- endif %}
         {%- else -%}
-          {% unless entry.country -%}
+          {% if entry.country -%}
+          {%- else -%}
             <div> &nbsp; </div>
           {%- endunless %}
         {%- endif %}
