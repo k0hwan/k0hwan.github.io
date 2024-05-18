@@ -44,7 +44,7 @@
         </div>
 
         <!-- Entry bib key -->
-        <div id="{{entry.key}}" class="{% if entry.preview or entry.abbr %}col-sm-8{% else %}col-sm-10{% endif %}">
+        <div id="{{entry.key}}" class="{% if entry.preview or entry.abbr or entry.country %}col-sm-8{% else %}col-sm-10{% endif %}">
 
         {%- if entry.award %}
           {% if entry.award contains 'Honor' -%}
