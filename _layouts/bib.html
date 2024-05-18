@@ -33,6 +33,17 @@
 
         <!-- Entry bib key -->
         <div id="{{entry.key}}" class="{% if entry.preview or entry.abbr %}col-sm-8{% else %}col-sm-10{% endif %}">
+
+        {%- if entry.award %}
+          {% if entry.award contains 'Honor' -%}
+            <div>🏅 <b>{{ entry.award }}</b></div>
+          {%- elsif entry.award contains 'Best' -%}
+            <div>🏆 <b>{{ entry.award }}</b></div>
+          {%- else -%}
+            <div>🎖️ <b>{{ entry.award }}</b></div>
+          {%- endif %}
+        {%- endif %}
+        
         <!-- Title -->
         <div class="title">{{entry.title}}</div>
         <!-- Author -->
@@ -141,15 +152,7 @@
               <div> <b>Advisor</b>: {{ entry.advisor }}</div>
             {%- endif %}
           {%- endif %}
-          {%- if entry.award %}
-            {% if entry.award contains 'Honor' -%}
-              <div>🏅 <b>{{ entry.award }}</b></div>
-            {%- elsif entry.award contains 'Best' -%}
-              <div>🏆 <b>{{ entry.award }}</b></div>
-            {%- else -%}
-              <div>🎖️ <b>{{ entry.award }}</b></div>
-            {%- endif %}
-          {%- endif %}
+          
           {%- if entry.abstract %}
             <a class="abstract btn btn-sm z-depth-0" role="button">ABSTRACT</a>
           {%- endif %}
