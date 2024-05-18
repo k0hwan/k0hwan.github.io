@@ -36,14 +36,14 @@
 
         {%- if entry.award %}
           {% if entry.award contains 'Honor' -%}
-            <div>🏅 <b>{{ entry.award }}</b></div>
+            <div>🏅 <b><span style="color: #134A9D;">{{ entry.award }}</span></b></div>
           {%- elsif entry.award contains 'Best' -%}
-            <div>🏆 <b>{{ entry.award }}</b></div>
+            <div>🏆 <b><span style="color: #134A9D;">{{ entry.award }}</span></b></div>
           {%- else -%}
-            <div>🎖️ <b>{{ entry.award }}</b></div>
+            <div>🎖️ <b><span style="color: #134A9D;">{{ entry.award }}</span></b></div>
           {%- endif %}
         {%- endif %}
-        
+
         <!-- Title -->
         <div class="title">{{entry.title}}</div>
         <!-- Author -->
