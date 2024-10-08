@@ -24,7 +24,7 @@ social: true  # includes social icons at the bottom of the page
 Hi! 👋 This is **[Kyunghwan](https://kyunghwan.xyz/)**, a Master's student in **[School of Computing](https://cs.kaist.ac.kr/)**, **[KAIST](https://www.kaist.ac.kr/)**.
 I am part of the Human-Computer Interaction Lab (**[HCIL](https://hcil.kaist.ac.kr/)**), advised by Professor **[Geehyuk Lee](https://scholar.google.co.kr/citations?user=wBXkmcQAAAAJ)**.
 
-My research interests lie in **Human‐Computer Interaction (HCI)**, **Physical Interaction Techniques**, eXtended Reality (XR), and Assistive Technology.
+I am highly interested in discovering **novel physical input methods and devices** to better assist **input for AR devices**.
 
 Please refer to my **[CV](https://kyunghwan.xyz/assets/pdf/CV_KyunghwanKim.pdf)** for more information and the various extracurricular activities I have organized, including **GDSC** *(Google Developer Student Clubs)*, two **Toastmasters** clubs *(International Association to Develop Public Speaking Skills)*, **G.OnNaRae** *(GIST Student Ambassador)*, and many more!! 🙌
 
