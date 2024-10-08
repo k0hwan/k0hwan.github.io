@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2024-04-27 00:00:00-0000
+date: 2024-02-16 00:00:00-0000
 inline: true
 related_posts: false
 ---
 
-🎉 Our team's work on evaluating **[multimodal attractors for RDW](https://link.springer.com/10.1007/s10055-024-00997-y)** (Redirected Walking) in VR was accepted to **Springer Virtual Reality**!
+🎊 Can we make passive buttons to talk back to us through the tactile channel? **[STButton](https://doi.org/10.1145/3613905.3648671)** was accepted to **[CHI '24](https://chi2024.acm.org/) Interactivity**!
