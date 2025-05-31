@@ -18,6 +18,10 @@
 
 "B.S. Thesis":
   color: "#000000"
+"M.S. Thesis":
+  color: "#000000"
+"Ph.D. Thesis":
+  color: "#000000"
 
 "RED":
   color: "#B74919"
