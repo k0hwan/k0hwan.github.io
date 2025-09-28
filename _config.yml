@@ -8,7 +8,7 @@ middle_name:
 last_name: Kim
 email: k0hwan.hci@gmail.com
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  HCI Researcher. Master's student at Human-Computer Interaction Lab (HCIL), School of Computing, KAIST. 
+  HCI Researcher. Ph.D. student at Human-Computer Interaction Lab (HCIL), School of Computing, KAIST. 
   I connect Humans with Computers through novel Physical Interaction techniques!!
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a>.
