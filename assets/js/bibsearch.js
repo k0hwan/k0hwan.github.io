@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // highlight-search-term
     if (CSS.highlights) {
-      const nonMatchingElements = highlightSearchTerm({ search: searchTerm, selector: ".bibliography > li" });
+      const nonMatchingElements = highlightSearchTerm({ search: searchTerm, selector: ".bibliography > li, .award-item" });
       if (nonMatchingElements == null) {
         return;
       }
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     } else {
       // Simply add unloaded class to all non-matching items if Browser does not support CSS highlights
-      document.querySelectorAll(".bibliography > li").forEach((element, index) => {
+      document.querySelectorAll(".bibliography > li, .award-item").forEach((element, index) => {
         const text = element.innerText.toLowerCase();
         if (text.indexOf(searchTerm) == -1) {
           element.classList.add("unloaded");

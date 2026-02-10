@@ -1097,7 +1097,7 @@ html {
   }
 }
 
-// +++ Modern pill design
+// +++ Modern pill design search box
 .bib-search-container {
   position: relative;
   display: flex;
@@ -1128,4 +1128,84 @@ html {
     outline: none;
     border-color: var(--global-theme-color);
   }
+}
+
+// +++ Awards page
+.awards-content {
+  max-width: 800px;
+  margin: 2rem auto 0;
+}
+
+.award-item {
+  background: var(--global-card-bg-color);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  border: 1px solid var(--global-divider-color);
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  gap: 20px;
+}
+
+.award-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+  border-color: var(--global-theme-color);
+}
+
+.award-header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.award-title {
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin: 0 !important;
+  color: var(--global-text-color);
+}
+
+.award-rank-box {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--global-theme-color);
+  background: rgba(66, 133, 244, 0.1);
+  border: 1px solid var(--global-theme-color);
+  padding: 2px 10px;
+  border-radius: 4px;
+}
+
+.award-org {
+  margin: 0;
+  color: var(--global-text-color-light);
+  font-size: 0.95rem;
+  
+  a {
+    color: var(--global-theme-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    &:hover { color: var(--global-hover-color); }
+  }
+}
+
+.award-year-badge {
+  background: var(--global-theme-color);
+  color: white;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  min-width: 50px;
+  text-align: center;
+  height: fit-content;
+}
+
+.bib-search-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -3.8rem;
+  margin-bottom: 2rem;
 }

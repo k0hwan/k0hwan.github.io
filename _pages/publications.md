@@ -6,7 +6,6 @@ description: # publications by categories in reversed chronological order. gener
 nav: true
 nav_order: 1
 ---
-<!-- _pages/publications.md -->
 
 {% include bib_search.liquid %}
 
