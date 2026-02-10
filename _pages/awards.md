@@ -27,7 +27,7 @@ nav_order: 3
     <div class="award-year-badge">2025</div>
     <div class="award-body">
       <div class="award-header-row">
-        <h3 class="award-title">MSIT Minister’s Award</h3>
+        <h3 class="award-title">MSIT Minister’s Award (과기부장관상)</h3>
         <span class="award-rank-box">Top 5/206 Teams</span>
       </div>
       <p class="award-org">
@@ -79,7 +79,7 @@ nav_order: 3
       <div class="award-header-row">
         <h3 class="award-title">Commendation for Excellence in Science & Technology Reserve Forces Training</h3>
       </div>
-      <p class="award-org">ROK Army Consolidated Logistics School</p>
+      <p class="award-org">ROK Army Consolidated Logistics School (육군종합군수학교)</p>
     </div>
   </div>
 
@@ -89,7 +89,7 @@ nav_order: 3
       <div class="award-header-row">
         <h3 class="award-title">Honorable Mention (Video Category)</h3>
       </div>
-      <p class="award-org">The 6th KOSMA Student Competition, Korean Society of Media and Arts (KOSMA)</p>
+      <p class="award-org">The 6th KOSMA Student Competition, Korean Society of Media and Arts (KOSMA, 한국영상학회)</p>
     </div>
   </div>
 
@@ -100,7 +100,7 @@ nav_order: 3
         <h3 class="award-title">Distinguished Trainee Award</h3>
         <span class="award-rank-box">8th/1,560 Recruits</span>
       </div>
-      <p class="award-org">ROK Air Force Basic Military Training Wing</p>
+      <p class="award-org">ROK Air Force Basic Military Training Wing (공군기본군사훈련단)</p>
     </div>
   </div>
   
