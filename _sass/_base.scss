@@ -1060,11 +1060,69 @@ nav[data-toggle="toc"] {
   }
 }
 
+// +++ Filter search result (hide the rest)
 .unloaded {
   display: none !important;
 }
 
+// +++ Search highlight color
 ::highlight(search) {
-  background-color: rgba(255, 255, 0, 0.5);
-  color: black;
+  background-color: rgba(34, 139, 34, 1);
+  color: white;
+}
+
+// +++ Prevent layout change from scroll bar presence
+html {
+  overflow-y: scroll;
+}
+
+// +++ Positioning search box
+.bib-search-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -3.8rem;  // Align with H1
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+@media (max-width: 576px) {
+  .bib-search-wrapper {
+    margin-top: 0;
+    justify-content: center;
+  }
+  .bibsearch-form-input { width: 100%; }
+}
+
+// +++ Modern pill design
+.bib-search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    width: 14px;
+    height: 14px;
+    color: var(--global-text-color-light);
+  }
+}
+
+.bibsearch-form-input {
+  width: 180px;
+  height: 34px;
+  padding: 0 15px 0 35px;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 20px;
+  background-color: var(--global-card-bg-color);
+  color: var(--global-text-color);
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+
+  &:focus {
+    width: 250px;
+    outline: none;
+    border-color: var(--global-theme-color);
+  }
 }
