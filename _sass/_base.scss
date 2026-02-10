@@ -1129,7 +1129,7 @@ html {
 .award-category {
   margin-top: 3rem; 
   margin-bottom: 1.5rem;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1.5rem;
   color: var(--global-text-color);
   border-bottom: 1px solid var(--global-divider-color);
@@ -1166,16 +1166,16 @@ html {
 }
 
 .award-title {
-  font-weight: 800;
-  font-size: 1.15rem;
+  font-weight: 400;
+  font-size: 1.1rem;
   margin: 0 !important;
   color: var(--global-text-color);
 }
 
 .award-rank-box {
   display: inline-block;
-  font-size: 0.9rem;
-  font-weight: bold;
+  font-size: 0.85rem;
+  font-weight: 500;
   color: var(--global-theme-color);
   background: rgba(66, 133, 244, 0.1);
   border: 1px solid var(--global-theme-color);
@@ -1185,7 +1185,7 @@ html {
 
 .award-org {
   margin: 0;
-  color: var(--global-text-color-light);
+  color: var(--global-text-color);
   font-size: 0.95rem;
   
   a {
@@ -1199,7 +1199,7 @@ html {
 .award-year-badge {
   background: var(--global-theme-color);
   color: white;
-  font-weight: bold;
+  font-weight: 600;
   padding: 4px 10px;
   border-radius: 6px;
   font-size: 0.85rem;
