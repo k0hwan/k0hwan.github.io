@@ -1086,17 +1086,6 @@ html {
   z-index: 10;
 }
 
-@media (max-width: 576px) {
-  .bib-search-wrapper {
-    margin-top: 0;
-    justify-content: flex-end;
-  }
-  .bibsearch-form-input { 
-    width: 200px;
-    max-width: 100%;
-  }
-}
-
 // +++ Modern pill design search box
 .bib-search-container {
   position: relative;
@@ -1140,8 +1129,8 @@ html {
 .award-category {
   margin-top: 3rem; 
   margin-bottom: 1.5rem;
-  font-weight: 500;
-  font-size: 2rem;
+  font-weight: 300;
+  font-size: 1.5rem;
   color: var(--global-text-color);
   border-bottom: 1px solid var(--global-divider-color);
   padding-bottom: 0.5rem;
@@ -1219,9 +1208,25 @@ html {
   height: fit-content;
 }
 
-.bib-search-wrapper {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: -3.8rem;
-  margin-bottom: 2rem;
+// +++ Handle mobile environment
+@media (max-width: 576px) {
+  .bib-search-wrapper {
+    margin-top: 0;
+    justify-content: flex-end;
+  }
+
+  .bibsearch-form-input { 
+    width: 200px;
+    max-width: 100%;
+  }
+  
+  .award-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  
+  .award-rank-box {
+    font-size: 0.8rem;
+  }
 }
