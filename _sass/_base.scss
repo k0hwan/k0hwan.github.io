@@ -1133,11 +1133,14 @@ html {
   font-size: 1.5rem;
   color: var(--global-text-color);
   
-  border-top: 1px solid var(--global-divider-color);
-  padding-top: 1rem;
+  border-bottom: 1px solid var(--global-divider-color);
+  padding-bottom: 0.5rem;
 
   &:first-of-type {
-    margin-top: 0rem; 
+    margin-top: 1rem; 
+    
+    border-top: 1px solid var(--global-divider-color);
+    padding-top: 1rem;
   }
 }
 
@@ -1212,8 +1215,8 @@ html {
 // +++ Handle mobile environment
 @media (max-width: 576px) {
   .bib-search-wrapper {
-    margin-top: -2rem;
-    justify-content: flex-end;
+    margin-top: -1.5rem;
+    justify-content: flex-start;
   }
 
   .bibsearch-form-input { 
