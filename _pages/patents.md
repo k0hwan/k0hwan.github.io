@@ -9,6 +9,7 @@ nav_order: 2
 <!-- _pages/publications.md -->
 <div class="publications">
 
+{% include bib_search.liquid %}
 {% bibliography -f patents %}
 
 </div>
