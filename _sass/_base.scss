@@ -1089,9 +1089,12 @@ html {
 @media (max-width: 576px) {
   .bib-search-wrapper {
     margin-top: 0;
-    justify-content: center;
+    justify-content: flex-end;
   }
-  .bibsearch-form-input { width: 100%; }
+  .bibsearch-form-input { 
+    width: 200px;
+    max-width: 100%;
+  }
 }
 
 // +++ Modern pill design
