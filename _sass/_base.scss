@@ -1059,3 +1059,12 @@ nav[data-toggle="toc"] {
     padding-top: 0.5rem;
   }
 }
+
+.unloaded {
+  display: none !important;
+}
+
+::highlight(search-term) {
+  background-color: rgba(255, 255, 0, 0.5);
+  color: black;
+}
