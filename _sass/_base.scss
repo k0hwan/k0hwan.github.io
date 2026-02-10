@@ -1064,7 +1064,7 @@ nav[data-toggle="toc"] {
   display: none !important;
 }
 
-::highlight(search-term) {
+::highlight(search) {
   background-color: rgba(255, 255, 0, 0.5);
   color: black;
 }

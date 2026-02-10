@@ -78,11 +78,29 @@ const highlightSearchTerm = ({ search, selector, customHighlightName = "search" 
   return nonMatchingElements; // modified: return `nonMatchingElements`
 };
 
+// const getTextNodesInElementContainingText = (element, text) => {
+//   const nodes = [];
+//   const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+//   let node;
+//   while ((node = walker.nextNode())) {
+//     if (node.textContent && node.textContent.toLowerCase().includes(text)) {
+//       nodes.push(node);
+//     }
+//   }
+//   return nodes;
+// };
+
 const getTextNodesInElementContainingText = (element, text) => {
   const nodes = [];
   const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
   let node;
   while ((node = walker.nextNode())) {
+    // +++ Skip filter
+    const parent = node.parentElement;
+    if (parent.closest('.abstract') || parent.closest('.bibtex') || parent.closest('.links')) {
+      continue;
+    }
+
     if (node.textContent && node.textContent.toLowerCase().includes(text)) {
       nodes.push(node);
     }
