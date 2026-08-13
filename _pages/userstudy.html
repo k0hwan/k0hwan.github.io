@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: /userstudy/
-title: User Study Signup
+title: 사용자 실험 신청
 nav: false
 ---
 
@@ -132,10 +132,10 @@ nav: false
 .us-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 
 /* ---------- day cards, side by side ---------- */
-.us-days { display: flex; flex-wrap: nowrap; gap: 1rem; align-items: stretch; 
+.us-days { display: flex; flex-wrap: nowrap; gap: 1rem; align-items: flex-start; 
   overflow-x: auto; padding-bottom: .6rem; }
 .us-day {
-  flex: 0 0 var(--day-w); min-width: var(--day-w);
+  flex: var(--day-grow) 0 var(--day-w); min-width: var(--day-w);
   border: 1px solid var(--line); border-radius: 10px;
   padding: 1rem .85rem .85rem;
   display: flex; flex-direction: column;
@@ -151,6 +151,15 @@ nav: false
   font-variant-numeric: tabular-nums; font-weight: 500;
 }
 .us-daynote { font-size: .78rem; color: var(--ink-soft); margin: .35rem 0 0; line-height: 1.5; }
+
+.us-colhead--sat,
+.us-colhead--sat em {
+  color: #6e9ddb;
+}
+.us-colhead--sun,
+.us-colhead--sun em {
+  color: #c77d7d;
+}
 
 /* ---------- board ---------- */
 .us-board { display: flex; gap: .5rem; flex: 1 1 auto; }
@@ -250,7 +259,6 @@ nav: false
   .us-title { font-size: 1.4rem; }
   .us-grid { grid-template-columns: 1fr; }
   .us-meta div { grid-template-columns: 5.2rem 1fr; }
-  .us-day { flex: 0 0 100%; min-width: 0; }
   .us-btn { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -298,7 +306,7 @@ nav: false
   }
   function dateLabel(iso) {
     var p = iso.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
-    return { md: (+p[1]) + '/' + (+p[2]), dow: DOW[d.getDay()] };
+    return { md: (+p[1]) + '/' + (+p[2]), dow: DOW[d.getDay()], dowNum: d.getDay() };
   }
 
   /* JSONP for reads: no CORS surface at all */
@@ -438,10 +446,10 @@ nav: false
     var bodyH = range * ppm;
     var boardH = headH + bodyH;
 
-    var colWidth = 80;
-    var colGap = 7.2;
-    var fixedWidth = 72;
     var n = day.dates.length;
+    var colWidth = 80;
+    var colGap = 7;
+    var fixedWidth = 72;
     var dayWidth = Math.max(180, fixedWidth + n * colWidth + Math.max(0, n - 1) * colGap);
 
     var ticks = '', lines = '';
@@ -467,12 +475,16 @@ nav: false
           (tag ? '<small>' + esc(tag) + '</small>' : '') +
           '</button>';
       }).join('');
-      return '<div class="us-col"><div class="us-colhead">' + lab.md +
+      var weekendClass =
+        lab.dowNum === 0 ? ' us-colhead--sun' :
+        lab.dowNum === 6 ? ' us-colhead--sat' : '';
+
+      return '<div class="us-col"><div class="us-colhead' + weekendClass + '">' + lab.md +
         ' <em>(' + lab.dow + ')</em></div><div class="us-colbody" style="--body-h:' + bodyH + 'px">' + slots + '</div></div>';
     }).join('');
 
     return '<section class="us-day" style="--cols:' + day.dates.length +
-  ';--day-w:' + dayWidth + 'px" data-day="' + esc(day.id) + '">' +
+  ';--day-w:' + dayWidth + 'px;--day-grow:' + dayWidth + '" data-day="' + esc(day.id) + '">' +
       '<div class="us-dayhead"><h4>' + esc(day.label) +
       '<span class="us-chip">' + day.duration_min + '분</span></h4>' +
       (day.note ? '<p class="us-daynote">' + esc(day.note) + '</p>' : '') + '</div>' +
