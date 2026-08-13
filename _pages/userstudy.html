@@ -216,6 +216,10 @@ nav: false
 .us-colhead--sun em {
   color: #c77d7d;
 }
+.us-colhead--holiday,
+.us-colhead--holiday em {
+  color: #c77d7d;
+}
 .us-colbody { position: relative; height: var(--body-h); }
 
 /* ---------- slot ---------- */
@@ -331,9 +335,13 @@ nav: false
     var h = Math.floor(m / 60) % 24, x = m % 60;
     return (h < 10 ? '0' : '') + h + ':' + (x < 10 ? '0' : '') + x;
   }
+  function isHoliday(iso) {
+    var raw = DATA && DATA.config ? DATA.config.holiday_dates : '';
+    return String(raw || '').split(/[,\s]+/).filter(Boolean).indexOf(iso) !== -1;
+  }
   function dateLabel(iso) {
     var p = iso.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
-    return { md: (+p[1]) + '/' + (+p[2]), dow: DOW[d.getDay()], dowNum: d.getDay() };
+    return { md: (+p[1]) + '/' + (+p[2]), dow: DOW[d.getDay()], dowNum: d.getDay(), holiday: isHoliday(iso) };
   }
 
   /* JSONP for reads: no CORS surface at all */
@@ -504,6 +512,7 @@ nav: false
           '</button>';
       }).join('');
       var weekendClass =
+        lab.holiday ? ' us-colhead--holiday' :
         lab.dowNum === 0 ? ' us-colhead--sun' :
         lab.dowNum === 6 ? ' us-colhead--sat' : '';
 
