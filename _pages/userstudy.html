@@ -581,6 +581,85 @@ nav: false
       fromMin(toMin(found.s.start) + dur)) + '</b>';
   }
 
+  function snapshotForm() {
+    return {
+        name: (document.getElementById('us-name') || {}).value || '',
+        gender: (elMain.querySelector('input[name="gender"]:checked') || {}).value || '',
+        phone: (document.getElementById('us-phone') || {}).value || '',
+        email: (document.getElementById('us-email') || {}).value || '',
+        memo: (document.getElementById('us-memo') || {}).value || '',
+        picked: Object.assign({}, picked)
+    };
+  }
+
+  function restoreForm(state, options) {
+    options = options || {};
+    var clearSlots = options.clearSlots || [];
+
+    var name = document.getElementById('us-name');
+    var phone = document.getElementById('us-phone');
+    var email = document.getElementById('us-email');
+    var memo = document.getElementById('us-memo');
+
+    if (name) name.value = state.name;
+    if (phone) phone.value = state.phone;
+    if (email) email.value = state.email;
+    if (memo) memo.value = state.memo;
+
+    // 성별 마감이 아니면 기존 선택 복원. 최신 화면에서 disabled가 됐다면 복원하지 않는다.
+    if (!options.clearGender && state.gender) {
+      var genderInput = elMain.querySelector(
+      'input[name="gender"][value="' + state.gender + '"]:not(:disabled)'
+      );
+
+      if (genderInput) {
+      genderInput.checked = true;
+      }
+    }
+
+    /* render() 후 슬롯 선택을 새로 구축 */
+    picked = {};
+    Object.keys(state.picked).forEach(function (dayId) {
+      var slotId = state.picked[dayId];
+
+      /* 서버가 충돌했다고 알려준 슬롯만 버림 */
+      if (clearSlots.indexOf(slotId) !== -1) {
+      return;
+      }
+
+      /* 최신 데이터에서도 실제로 열려 있는 경우에만 복원 */
+      var btn = elMain.querySelector(
+      '.us-slot[data-day="' + dayId +
+      '"][data-slot="' + slotId + '"]:not(:disabled)'
+      );
+
+      if (!btn) return;
+
+      picked[dayId] = slotId;
+      btn.setAttribute('aria-pressed', 'true');
+      updatePicked(dayId);
+    });
+  }
+
+  function refreshPreserving(state, options) {
+    return jsonp(API_URL).then(function (res) {
+      if (!res || !res.ok) {
+        throw new Error(res && res.message || 'bad response');
+      }
+
+      DATA = res.data;
+
+      /* 전체 모집이 끝났다면 복원하지 않고 정식 마감 화면 */
+      if (DATA.closed) {
+        render();
+        return;
+      }
+
+      render();
+      restoreForm(state, options);
+    });
+  }
+
   function submit(e) {
     e.preventDefault();
     var msg = document.getElementById('us-msg');
@@ -616,13 +695,46 @@ nav: false
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // simple request → no CORS preflight
       body: JSON.stringify(payload)
-    }).then(function (r) { return r.json(); }).then(function (res) {
-      if (res && res.ok) return done(res.result);
-      btn.disabled = false; btn.textContent = DATA.config.submit_label || '신청하기';
-      msg.textContent = (res && res.message) || '신청에 실패했습니다. 잠시 후 다시 시도해 주세요.';
-      if (res && (res.error === 'SLOT_TAKEN' || res.error === 'FULL' || res.error === 'CLOSED')) {
-        picked = {}; load();
+    }).then(function (r) {
+      return r.json();
+    }).then(function (res) {
+      if (res && res.ok) {
+        return done(res.result);
       }
+
+      btn.disabled = false;
+      btn.textContent = DATA.config.submit_label || '신청하기';
+
+      // 서버 오류 응답을 받았을 당시 입력 상태
+      var state = snapshotForm();
+
+      // 1. 선택 슬롯 일부가 마감됨
+      if (res && res.error === 'SLOT_CONFLICT') {
+        alert(res.message || '선택하신 시간 중 일부가 방금 마감되었습니다. 다시 선택해 주세요.');
+        return refreshPreserving(state, { clearSlots: Array.isArray(res.slot_ids) ? res.slot_ids : [] });
+      }
+
+      // 2. 특정 성별 모집 마감
+      if (res && res.error === 'GENDER_FULL') {
+        alert(res.message || '선택하신 성별의 모집이 방금 마감되었습니다.');
+        return refreshPreserving(state, { clearGender: true });
+      }
+
+      // 3. 전체 모집 인원 마감
+      if (res && res.error === 'TOTAL_FULL') {
+        alert(res.message || '모집이 방금 모두 마감되었습니다.');
+        return load();
+      }
+
+      // 4. accepting OFF / close_at 등
+      if (res && res.error === 'CLOSED') {
+        alert(res.message || '현재 신청을 받고 있지 않습니다.');
+        return load();
+      }
+
+      msg.textContent =
+        (res && res.message) ||
+        '신청에 실패했습니다. 잠시 후 다시 시도해 주세요.';
     }).catch(function (err) {
       console.error('[userstudy]', err);
       btn.disabled = false; btn.textContent = DATA.config.submit_label || '신청하기';
