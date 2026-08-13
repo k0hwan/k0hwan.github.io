@@ -144,11 +144,11 @@ nav: false
 .us-days,
 .us-scroll {
   scrollbar-width: thin;
-  scrollbar-color: var(--ink-soft) transparent;
+  scrollbar-color: color-mix(in srgb, var(--ink-soft) 30%, var(--paper)) transparent;
 }
 .us-days::-webkit-scrollbar,
 .us-scroll::-webkit-scrollbar {
-  height: 8px;
+  height: 6px;
 }
 .us-days::-webkit-scrollbar-track,
 .us-scroll::-webkit-scrollbar-track {
@@ -156,12 +156,12 @@ nav: false
 }
 .us-days::-webkit-scrollbar-thumb,
 .us-scroll::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--ink-soft) 65%, transparent);
+  background: color-mix(in srgb, var(--ink-soft) 30%, var(--paper));
   border-radius: 999px;
 }
 .us-days::-webkit-scrollbar-thumb:hover,
 .us-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--ink-soft);
+  background: color-mix(in srgb, var(--ink-soft) 55%, var(--paper));
 }
 .us-days::-webkit-scrollbar-button,
 .us-scroll::-webkit-scrollbar-button {
