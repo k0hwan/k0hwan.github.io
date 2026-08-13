@@ -44,7 +44,6 @@ nav: false
   --tint-70: color-mix(in srgb, var(--accent) 70%, transparent);
   --dim: color-mix(in srgb, var(--ink) 9%, transparent);
 
-  --ppm: .78;           /* pixels per minute on the timeline */
   --headh: 30px;        /* date-column header height */
   --r: 8px;
 
@@ -96,7 +95,7 @@ nav: false
 .us-pill--full b { color: var(--ink-soft); }
 
 /* ---------- section heads ---------- */
-.us-h { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; margin: 2.4rem 0 .3rem; }
+.us-h { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; margin: 3rem 0 .5rem; }
 .us-h h3 { font-size: 1.15rem; font-weight: 500; margin: 0; }
 .us-hint { color: var(--ink-soft); font-size: .85rem; margin: 0 0 1.1rem; line-height: 1.6; }
 
@@ -133,9 +132,10 @@ nav: false
 .us-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 
 /* ---------- day cards, side by side ---------- */
-.us-days { display: flex; flex-wrap: wrap; gap: 1rem; align-items: stretch; }
+.us-days { display: flex; flex-wrap: nowrap; gap: 1rem; align-items: stretch; 
+  overflow-x: auto; padding-bottom: .6rem; }
 .us-day {
-  flex: var(--cols) 1 0; min-width: 232px;
+  flex: 0 0 var(--day-w); min-width: var(--day-w);
   border: 1px solid var(--line); border-radius: 10px;
   padding: 1rem .85rem .85rem;
   display: flex; flex-direction: column;
@@ -246,11 +246,11 @@ nav: false
 
 /* ---------- responsive ---------- */
 @media (max-width: 620px) {
-  .us { --ppm: .68; --headh: 27px; }
+  .us { --headh: 27px; }
   .us-title { font-size: 1.4rem; }
   .us-grid { grid-template-columns: 1fr; }
   .us-meta div { grid-template-columns: 5.2rem 1fr; }
-  .us-day { flex: 1 1 100%; }
+  .us-day { flex: 0 0 100%; min-width: 0; }
   .us-btn { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -416,7 +416,6 @@ nav: false
   }
 
   function schedule() {
-    var multi = DATA.days.length > 1;
     return '<div class="us-h"><h3>시간 선택</h3></div>' +
       '<div class="us-days">' + DATA.days.map(dayCard).join('') + '</div>';
   }
@@ -438,6 +437,12 @@ nav: false
     var headH = window.innerWidth <= 620 ? 27 : 30;
     var bodyH = range * ppm;
     var boardH = headH + bodyH;
+
+    var colWidth = 110;
+    var colGap = 7.2;
+    var fixedWidth = 72;
+    var n = day.dates.length;
+    var dayWidth = Math.max(280, fixedWidth + n * colWidth + Math.max(0, n - 1) * colGap);
 
     var ticks = '', lines = '';
     for (var t = Math.ceil(start / 60) * 60; t <= end; t += 60) {
@@ -466,7 +471,8 @@ nav: false
         ' <em>(' + lab.dow + ')</em></div><div class="us-colbody" style="--body-h:' + bodyH + 'px">' + slots + '</div></div>';
     }).join('');
 
-    return '<section class="us-day" style="--cols:' + day.dates.length + '" data-day="' + esc(day.id) + '">' +
+    return '<section class="us-day" style="--cols:' + day.dates.length +
+  ';--day-w:' + dayWidth + 'px" data-day="' + esc(day.id) + '">' +
       '<div class="us-dayhead"><h4>' + esc(day.label) +
       '<span class="us-chip">' + day.duration_min + '분</span></h4>' +
       (day.note ? '<p class="us-daynote">' + esc(day.note) + '</p>' : '') + '</div>' +
