@@ -140,6 +140,34 @@ nav: false
   padding: 1rem .85rem .85rem;
   display: flex; flex-direction: column;
 }
+
+.us-days,
+.us-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-soft) transparent;
+}
+.us-days::-webkit-scrollbar,
+.us-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+.us-days::-webkit-scrollbar-track,
+.us-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.us-days::-webkit-scrollbar-thumb,
+.us-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ink-soft) 65%, transparent);
+  border-radius: 999px;
+}
+.us-days::-webkit-scrollbar-thumb:hover,
+.us-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-soft);
+}
+.us-days::-webkit-scrollbar-button,
+.us-scroll::-webkit-scrollbar-button {
+  display: none;
+}
+
 .us-dayhead { text-align: center; margin-bottom: .9rem; }
 .us-dayhead h4 {
   font-size: 1rem; font-weight: 500; margin: 0;
@@ -151,15 +179,6 @@ nav: false
   font-variant-numeric: tabular-nums; font-weight: 500;
 }
 .us-daynote { font-size: .78rem; color: var(--ink-soft); margin: .35rem 0 0; line-height: 1.5; }
-
-.us-colhead--sat,
-.us-colhead--sat em {
-  color: #6e9ddb;
-}
-.us-colhead--sun,
-.us-colhead--sun em {
-  color: #c77d7d;
-}
 
 /* ---------- board ---------- */
 .us-board { display: flex; gap: .5rem; flex: 1 1 auto; }
@@ -189,6 +208,14 @@ nav: false
   gap: .25rem; font-size: .8rem; font-weight: 500; white-space: nowrap;
 }
 .us-colhead em { font-style: normal; font-weight: 400; color: var(--ink-soft); font-size: .75rem; }
+.us-colhead--sat,
+.us-colhead--sat em {
+  color: #6e9ddb;
+}
+.us-colhead--sun,
+.us-colhead--sun em {
+  color: #c77d7d;
+}
 .us-colbody { position: relative; height: var(--body-h); }
 
 /* ---------- slot ---------- */
@@ -463,14 +490,15 @@ nav: false
       var slots = d.slots.map(function (s) {
         var dur = s.duration || day.duration_min;
         var open = s.available;
-        var tag = open ? (s.left > 1 ? s.left + '자리' : '') : (s.reason === 'past' ? '종료' : '마감');
+        var tag = open && s.left > 1 ? s.left + '자리' : '';
+        var stateText = open ? '' : (s.reason === 'past' ? ' 종료' : ' 마감');
         var topPx = (toMin(s.start) - start) * ppm;
         var heightPx = Math.max(dur * ppm - 4, 24);
         return '<button type="button" class="us-slot"' +
           ' style="--top:' + topPx + 'px;--slot-h:' + heightPx + 'px"' +
           ' data-day="' + esc(day.id) + '" data-slot="' + esc(s.id) + '" aria-pressed="false"' +
           (open ? '' : ' disabled') +
-          ' aria-label="' + esc(lab.md + ' ' + s.start + '–' + fromMin(toMin(s.start) + dur) + (open ? '' : ' ' + tag)) + '">' +
+          ' aria-label="' + esc(lab.md + ' ' + s.start + '–' + fromMin(toMin(s.start) + dur) + stateText ) + '">' +
           '<span class="us-t">' + esc(s.start) + '</span>' +
           (tag ? '<small>' + esc(tag) + '</small>' : '') +
           '</button>';
