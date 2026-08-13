@@ -232,7 +232,7 @@ nav: false
 .us-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .us-btn--ghost { background: transparent; color: var(--accent); }
 .us-msg { font-size: .88rem; color: #e06c5e; margin: 0; }
-.us-note { font-size: .78rem; color: var(--ink-soft); margin: 1.1rem 0 0; line-height: 1.6; }
+.us-note { font-size: .78rem; color: var(--ink-soft); margin: 1.1rem 0 .7rem; line-height: 1.6; }
 
 /* ---------- closed / done ---------- */
 .us-closed { text-align: center; padding: 3.5rem 1rem; }
@@ -438,11 +438,11 @@ nav: false
     var bodyH = range * ppm;
     var boardH = headH + bodyH;
 
-    var colWidth = 110;
+    var colWidth = 80;
     var colGap = 7.2;
     var fixedWidth = 72;
     var n = day.dates.length;
-    var dayWidth = Math.max(280, fixedWidth + n * colWidth + Math.max(0, n - 1) * colGap);
+    var dayWidth = Math.max(180, fixedWidth + n * colWidth + Math.max(0, n - 1) * colGap);
 
     var ticks = '', lines = '';
     for (var t = Math.ceil(start / 60) * 60; t <= end; t += 60) {
@@ -486,10 +486,10 @@ nav: false
   }
 
   function actions(c) {
-    return '<div class="us-actions">' +
+    return (c.privacy_note ? '<p class="us-note">' + esc(c.privacy_note) + '</p>' : '') +
+      '<div class="us-actions">' +
       '<button type="submit" class="us-btn" id="us-submit">' + esc(c.submit_label || '신청하기') + '</button>' +
-      '<p class="us-msg" id="us-msg" role="alert"></p></div>' +
-      (c.privacy_note ? '<p class="us-note">' + esc(c.privacy_note) + '</p>' : '');
+      '<p class="us-msg" id="us-msg" role="alert"></p></div>';
   }
 
   /* ---------- interaction ---------- */
