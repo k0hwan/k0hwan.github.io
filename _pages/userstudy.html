@@ -660,6 +660,26 @@ nav: false
     });
   }
 
+  function applyServerData(state, options, data) {
+    // 새 서버에서는 POST 응답에 최신 public data가 같이 온다.
+    // 구버전 서버 등으로 data가 없을 때만 기존 GET 방식으로 fallback.
+    if (!data) {
+      return refreshPreserving(state, options);
+    }
+
+    DATA = data;
+
+    if (DATA.closed) {
+      render();
+      return Promise.resolve();
+    }
+
+    render();
+    restoreForm(state, options);
+
+    return Promise.resolve();
+  }
+
   function submit(e) {
     e.preventDefault();
     var msg = document.getElementById('us-msg');
@@ -711,24 +731,26 @@ nav: false
       // 1. 선택 슬롯 일부가 마감됨
       if (res && res.error === 'SLOT_CONFLICT') {
         alert(res.message || '선택하신 시간 중 일부가 방금 마감되었습니다. 다시 선택해 주세요.');
-        return refreshPreserving(state, { clearSlots: Array.isArray(res.slot_ids) ? res.slot_ids : [] });
+        return applyServerData(state, { clearSlots: Array.isArray(res.slot_ids) ? res.slot_ids : [] }, res.data);
       }
 
       // 2. 특정 성별 모집 마감
       if (res && res.error === 'GENDER_FULL') {
         alert(res.message || '선택하신 성별의 모집이 방금 마감되었습니다.');
-        return refreshPreserving(state, { clearGender: true });
+        return applyServerData(state, { clearGender: true }, res.data);
       }
 
       // 3. 전체 모집 인원 마감
       if (res && res.error === 'TOTAL_FULL') {
         alert(res.message || '모집이 방금 모두 마감되었습니다.');
+        if (res.data) { DATA = res.data; render(); return; }
         return load();
       }
 
       // 4. accepting OFF / close_at 등
       if (res && res.error === 'CLOSED') {
         alert(res.message || '현재 신청을 받고 있지 않습니다.');
+        if (res.data) { DATA = res.data; render(); return; }
         return load();
       }
 
