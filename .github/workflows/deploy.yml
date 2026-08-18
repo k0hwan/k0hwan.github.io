@@ -38,8 +38,15 @@ jobs:
         pip3 install --upgrade jupyter
         npm install -g mermaid.cli
         npm install -g purgecss
+
+        magick -version || convert -version
+        
         export JEKYLL_ENV=production
         bundle exec jekyll build --lsi
+
+        echo "=== Generated profile images ==="
+        find _site/assets/img -iname 'prof_pic*' -print
+
         purgecss -c purgecss.config.js
     - name: Deploy 🚀
       if: github.event_name != 'pull_request'
