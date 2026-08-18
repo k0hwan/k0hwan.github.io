@@ -56,6 +56,12 @@ table.table a {
   }
 }
 
+.news .table,
+.news .table td,
+.news .table th {
+  color: var(--global-text-color);
+}
+
 figure,
 img {
   max-width: 90vw;
