@@ -36,6 +36,7 @@ Besides research, I occasionally **[cook](https://www.instagram.com/human_food_i
     <p style="font-size: 0.85rem; color: var(--global-text-color-light); margin: 8px 0 0 0;">🌿 Hoya, Adenium Obesum(s), and Dwarf Umbrella Tree </p>
   </div>
 </div>
+
 <script>
 function togglePlantPhoto() {
   const container = document.getElementById('plant-photo-container');
