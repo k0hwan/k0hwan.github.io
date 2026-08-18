@@ -22,7 +22,7 @@ social: true  # includes social icons at the bottom of the page
 > *" I connect **Humans** with **Computers** through novel **Input Devices** and **Physical Interaction** techniques!! "*
 
 Hi! 👋 This is **[Kyunghwan](https://kyunghwan.xyz/)**, a Ph.D. student in **[School of Computing](https://cs.kaist.ac.kr/)**, **[KAIST](https://www.kaist.ac.kr/)**.
-I am part of the Human-Computer Interaction Lab (**[HCIL](https://hcil.kaist.ac.kr/)**), advised by Professor **[Geehyuk Lee](https://scholar.google.co.kr/citations?user=wBXkmcQAAAAJ)**.
+I am part of the Human-Computer Interaction Lab (**[HCIL](https://hcil.kaist.ac.kr/)**), advised by Professor **[Geehyuk Lee](https://scholar.google.co.kr/citations?user=0juZBecAAAAJ)**.
 
 I am highly interested in creating new **physical input methods and devices** to better assist **input for XR devices**.
 
@@ -32,14 +32,20 @@ Besides research, I occasionally **[cook](https://www.instagram.com/human_food_i
 
 <div id="plant-photo-container" style="max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s ease, margin 0.4s ease; margin-top: 0; margin-bottom: 0;">
   <div style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-    <img src="/assets/img/plants.png" alt="My Indoor Plants" style="max-width: 100%; max-height: 320px; border-radius: 6px; display: block; margin: 0 auto;">
-    <p style="font-size: 0.85rem; color: var(--global-text-color-light); margin: 8px 0 0 0;">🌿 Hoya, Dwarf Umbrella, and Adenium Obesum</p>
+    <img id="plant-img" data-src="{{ '/assets/img/plants.png' | relative_url }}" alt="My Indoor Plants" style="max-width: 100%; max-height: 320px; border-radius: 6px; display: block; margin: 0 auto;">
+    <p style="font-size: 0.85rem; color: var(--global-text-color-light); margin: 8px 0 0 0;">🌿 Hoya, Adenium Obesum(s), and Dwarf Umbrella Tree </p>
   </div>
 </div>
 
 <script>
 function togglePlantPhoto() {
   const container = document.getElementById('plant-photo-container');
+  const img = document.getElementById('plant-img');
+
+  if (!img.src && img.dataset.src) {
+    img.src = img.dataset.src;
+  }
+
   if (container.style.maxHeight === '0px' || container.style.maxHeight === '0' || !container.style.maxHeight) {
     container.style.maxHeight = '400px';
     container.style.opacity = '1';
