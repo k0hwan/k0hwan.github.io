@@ -26,7 +26,7 @@ I am part of the Human-Computer Interaction Lab (**[HCIL](https://hcil.kaist.ac.
 
 I am highly interested in creating new **physical input methods and devices** to better assist **input for XR devices**.
 
-Besides research, I occasionally **[cook](https://www.instagram.com/human_food_interaction)** 👨‍🍳, take care of my <a href="javascript:void(0);" onclick="togglePlantPhoto()"><b>indoor plants</b></a> 🪴, and enjoy **cycling** 🚲 & **badminton** 🏸.
+Besides research, I occasionally **[cook](https://www.instagram.com/human_food_interaction)** 👨‍🍳, take care of my <a href="javascript:void(0);" onclick="togglePlantPhoto()">**indoor plants**</a> 🪴, and enjoy **cycling** 🚲 & **badminton** 🏸.
 
 
 
