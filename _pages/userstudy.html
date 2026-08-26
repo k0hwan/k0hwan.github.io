@@ -100,9 +100,36 @@ nav: false
 .us-hint { color: var(--ink-soft); font-size: .85rem; margin: 0 0 1.1rem; line-height: 1.6; }
 
 /* ---------- form ---------- */
-.us-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.us-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1rem; row-gap: calc(1rem + 10pt); }
 .us-field { display: flex; flex-direction: column; gap: .35rem; }
 .us-field--wide { grid-column: 1 / -1; }
+.us-pair { display: grid; grid-template-columns: 4fr 1fr; gap: .75rem; align-items: start; }
+.us-pair label { white-space: nowrap; }
+.us-field--q > label { white-space: pre-line; line-height: 1.5; }
+
+/* 추가 질문 위 설명 블록 */
+.us-qintro {
+  grid-column: 1 / -1;
+  border: 1px solid var(--line); border-left: 3px solid var(--accent);
+  border-radius: var(--r); padding: .8rem .95rem;
+  background: var(--tint-10); color: var(--ink-soft); font-size: .88rem; line-height: 1.7;
+}
+.us-qintro > :first-child { margin-top: 0; }
+.us-qintro > :last-child { margin-bottom: 0; }
+.us-qintro p { margin: .5rem 0; }
+.us-qintro ul { margin: .5rem 0; padding-left: 1.15rem; }
+.us-qintro li { margin: .15rem 0; }
+.us-qintro strong { color: var(--ink); font-weight: 600; }
+.us-qintro code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .86em; background: var(--dim); padding: .08em .34em; border-radius: 4px;
+}
+.us-qintro blockquote {
+  margin: .55rem 0; padding: .1rem 0 .1rem .75rem;
+  border-left: 2px solid var(--line); color: var(--ink-soft);
+}
+.us-qintro a { color: var(--accent); text-decoration: underline; }
+
 .us-field label { font-size: .84rem; color: var(--ink-soft); }
 .us-field label span { color: var(--accent); }
 .us-field input, .us-field textarea {
@@ -120,6 +147,7 @@ nav: false
   flex: 1; text-align: center; border: 1px solid var(--line); border-radius: var(--r);
   padding: .55rem .4rem; cursor: pointer; font-size: .9rem; color: var(--ink);
   transition: border-color .12s ease, background-color .12s ease;
+  margin-bottom: 0;
 }
 .us-radios input { position: absolute; opacity: 0; pointer-events: none; }
 .us-radios label:hover { border-color: var(--tint-70); }
@@ -302,7 +330,7 @@ nav: false
   'use strict';
 
   /* ====== 1. YOUR APPS SCRIPT WEB APP URL ====== */
-  var API_URL = 'https://script.google.com/macros/s/AKfycbwcN1ddtwG3aLLkl3MAEkX-tfKfWytlUqk30pSDajKOYTW_JNET0IrmOfvMzJTthKjX/exec';
+  var API_URL = 'https://script.google.com/macros/s/AKfycbynntmdwX6Nt6QTjLH0JBkHS_WZIIWPSGRT-O_8BAaqVgR8MNMu0J-rE0u2bcAb8E3G/exec';
   /* ============================================= */
 
   var DOW = ['일', '월', '화', '수', '목', '금', '토'];
@@ -315,6 +343,55 @@ nav: false
   var picked = {};   // dayId -> slotId
 
   /* ---------- helpers ---------- */
+  /**
+   * 설명 블록용 최소 마크다운.
+   *  **굵게** · *기울임* · `코드` · [텍스트](https://…) · "- " 목록
+   *  빈 줄로 문단 분리 · 줄머리 ">" 또는 "|" 는 인용문
+   * 반드시 esc() 로 먼저 이스케이프한 뒤 태그를 만들기 때문에 시트 값이
+   * HTML 로 해석되는 경로는 없다. 링크는 http/https 만 허용한다.
+   */
+  function mdLite(src) {
+    var raw = String(src == null ? '' : src);
+    if (!raw.trim()) return '';
+
+    function inline(t) {
+      var codes = [];
+      t = t.replace(/`([^`]+)`/g, function (m, c) {
+        codes.push(c); return '\u0001' + (codes.length - 1) + '\u0001';
+      });
+      t = t.replace(/\[([^\]\n]+)\]\(([^)\s]+)\)/g, function (m, label, url) {
+        if (!/^https?:\/\//i.test(url)) return m;          // javascript: 등은 원문 그대로 노출
+        return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + label + '</a>';
+      });
+      t = t.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+      t = t.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
+      return t.replace(/\u0001(\d+)\u0001/g, function (m, i) {
+        return '<code>' + codes[+i] + '</code>';
+      });
+    }
+
+    return esc(raw)
+      .replace(/\r\n?/g, '\n')
+      .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '')
+      .split(/\n{2,}/)
+      .map(function (block) {
+        var lines = block.split('\n').filter(function (l) { return l.trim() !== ''; });
+        if (!lines.length) return '';
+        if (lines.every(function (l) { return /^\s*-\s+/.test(l); })) {
+          return '<ul>' + lines.map(function (l) {
+            return '<li>' + inline(l.replace(/^\s*-\s+/, '')) + '</li>';
+          }).join('') + '</ul>';
+        }
+        if (lines.every(function (l) { return /^\s*(&gt;|\|)\s?/.test(l); })) {
+          return '<blockquote>' + lines.map(function (l) {
+            return inline(l.replace(/^\s*(&gt;|\|)\s?/, ''));
+          }).join('<br>') + '</blockquote>';
+        }
+        return '<p>' + lines.map(inline).join('<br>') + '</p>';
+      })
+      .join('');
+  }
+
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -440,10 +517,25 @@ nav: false
     var s = DATA.stats || {};
     var mFull = s.male && s.male.target && s.male.left <= 0;
     var fFull = s.female && s.female.target && s.female.left <= 0;
+    var qs = c.questions || [];
+    var intro = qs.length ? mdLite(c.q_intro) : '';
+    var qHtml =
+      (intro ? '<div class="us-qintro">' + intro + '</div>' : '') +
+      qs.map(function (q) {
+        return '<div class="us-field us-field--wide us-field--q"><label for="us-' + esc(q.key) + '">' +
+          esc(q.label) + ' <span>*</span></label>' +
+          '<input id="us-' + esc(q.key) + '" name="' + esc(q.key) + '" type="text" maxlength="200"' +
+          (q.placeholder ? ' placeholder="' + esc(q.placeholder) + '"' : '') + '></div>';
+      }).join('');
+
     return '<div class="us-h"><h3>참가자 정보</h3></div>' +
       '<div class="us-grid">' +
-        '<div class="us-field"><label for="us-name">이름 <span>*</span></label>' +
-          '<input id="us-name" name="name" type="text" autocomplete="name" maxlength="30"></div>' +
+        '<div class="us-pair">' +
+          '<div class="us-field"><label for="us-name">이름 <span>*</span></label>' +
+            '<input id="us-name" name="name" type="text" autocomplete="name" maxlength="30"></div>' +
+          '<div class="us-field"><label for="us-age">만 나이 <span>*</span></label>' +
+            '<input id="us-age" name="age" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3"></div>' +
+        '</div>' +
         '<div class="us-field"><label>성별 <span>*</span></label><div class="us-radios">' +
           '<label><input type="radio" name="gender" value="M"' + (mFull ? ' disabled' : '') + '>남성' + (mFull ? ' <i>(마감)</i>' : '') + '</label>' +
           '<label><input type="radio" name="gender" value="F"' + (fFull ? ' disabled' : '') + '>여성' + (fFull ? ' <i>(마감)</i>' : '') + '</label>' +
@@ -452,6 +544,7 @@ nav: false
           '<input id="us-phone" name="phone" type="tel" inputmode="numeric" placeholder="010-1234-5678" autocomplete="tel" maxlength="13"></div>' +
         '<div class="us-field"><label for="us-email">이메일 <span>*</span></label>' +
           '<input id="us-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" maxlength="80"></div>' +
+        qHtml +
         '<div class="us-field us-field--wide"><label for="us-memo">남기실 말 (선택)</label>' +
           '<textarea id="us-memo" name="memo" maxlength="300" placeholder="문의 사항이나 참고할 내용이 있다면 적어 주세요."></textarea></div>' +
       '</div>' +
@@ -555,6 +648,11 @@ nav: false
       });
     });
 
+    var age = document.getElementById('us-age');
+    if (age) age.addEventListener('input', function () {
+      age.value = age.value.replace(/\D/g, '').slice(0, 3);
+    });
+
     var phone = document.getElementById('us-phone');
     phone.addEventListener('input', function () {
       var v = phone.value.replace(/\D/g, '').slice(0, 11);
@@ -581,12 +679,23 @@ nav: false
       fromMin(toMin(found.s.start) + dur)) + '</b>';
   }
 
+  /** Config 에 설정된 추가 질문 목록 (없으면 빈 배열) */
+  function questionList() {
+    return (DATA && DATA.config && DATA.config.questions) || [];
+  }
+
   function snapshotForm() {
+    var answers = {};
+    questionList().forEach(function (q) {
+      answers[q.key] = (document.getElementById('us-' + q.key) || {}).value || '';
+    });
     return {
         name: (document.getElementById('us-name') || {}).value || '',
+        age: (document.getElementById('us-age') || {}).value || '',
         gender: (elMain.querySelector('input[name="gender"]:checked') || {}).value || '',
         phone: (document.getElementById('us-phone') || {}).value || '',
         email: (document.getElementById('us-email') || {}).value || '',
+        answers: answers,
         memo: (document.getElementById('us-memo') || {}).value || '',
         picked: Object.assign({}, picked)
     };
@@ -597,14 +706,21 @@ nav: false
     var clearSlots = options.clearSlots || [];
 
     var name = document.getElementById('us-name');
+    var age = document.getElementById('us-age');
     var phone = document.getElementById('us-phone');
     var email = document.getElementById('us-email');
     var memo = document.getElementById('us-memo');
 
     if (name) name.value = state.name;
+    if (age) age.value = state.age || '';
     if (phone) phone.value = state.phone;
     if (email) email.value = state.email;
     if (memo) memo.value = state.memo;
+
+    questionList().forEach(function (q) {
+      var el = document.getElementById('us-' + q.key);
+      if (el) el.value = (state.answers && state.answers[q.key]) || '';
+    });
 
     // 성별 마감이 아니면 기존 선택 복원. 최신 화면에서 disabled가 됐다면 복원하지 않는다.
     if (!options.clearGender && state.gender) {
@@ -687,14 +803,29 @@ nav: false
     msg.textContent = '';
 
     var name = document.getElementById('us-name').value.trim();
+    var ageV = document.getElementById('us-age').value.trim();
     var gender = (elMain.querySelector('input[name="gender"]:checked') || {}).value;
     var phoneV = document.getElementById('us-phone').value.trim();
     var email = document.getElementById('us-email').value.trim();
 
     if (name.length < 2) return fail(msg, '이름을 입력해 주세요.');
+    if (!/^\d{1,3}$/.test(ageV) || +ageV < 1 || +ageV > 120) return fail(msg, '만 나이를 입력해 주세요.');
     if (!gender) return fail(msg, '성별을 선택해 주세요.');
     if (!/^01[016789]-?\d{3,4}-?\d{4}$/.test(phoneV)) return fail(msg, '휴대폰 번호를 정확히 입력해 주세요.');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return fail(msg, '이메일을 정확히 입력해 주세요.');
+
+    /* Config 에 표시된 추가 질문은 모두 필수 */
+    var qs = questionList();
+    var answers = {};
+    for (var qi = 0; qi < qs.length; qi++) {
+      var qEl = document.getElementById('us-' + qs[qi].key);
+      var qVal = qEl ? qEl.value.trim() : '';
+      if (!qVal) {
+        if (qEl) qEl.focus();
+        return fail(msg, '"' + qs[qi].label.replace(/\s+/g, ' ').trim() + '" 항목을 입력해 주세요.');
+      }
+      answers[qs[qi].key] = qVal;
+    }
 
     var missing = DATA.days.filter(function (d) { return !picked[d.id]; });
     if (missing.length) {
@@ -703,12 +834,12 @@ nav: false
       return fail(msg, missing[0].label + ' 시간을 선택해 주세요.');
     }
 
-    var payload = {
-      name: name, gender: gender, phone: phoneV, email: email,
+    var payload = Object.assign({
+      name: name, age: ageV, gender: gender, phone: phoneV, email: email,
       memo: document.getElementById('us-memo').value.trim(),
       website: elMain.querySelector('input[name="website"]').value,
       slots: DATA.days.map(function (d) { return picked[d.id]; })
-    };
+    }, answers);
 
     btn.disabled = true; btn.textContent = '신청 중…';
     fetch(API_URL, {
