@@ -34,8 +34,8 @@ sitemap: false
 /* ---------- tokens: everything derives from al-folio theme vars ---------- */
 .us {
   --accent: var(--global-theme-color, #00ab37);
-  --ink: var(--global-text-color, #070707);
-  --ink-soft: var(--global-text-color-light, #1c1c1c);
+  --ink: var(--global-text-color, #1c1c1c);
+  --ink-soft: var(--global-text-color-light, #333333);
   --paper: var(--global-bg-color, #fff);
   --line: var(--global-divider-color, rgba(128,128,128,.28));
 
@@ -52,6 +52,11 @@ sitemap: false
   max-width: 100%;
 }
 .us *, .us *::before, .us *::after { box-sizing: border-box; }
+
+html:not([data-theme="dark"]) .us {
+  --ink: #1c1c1c;
+  --ink-soft: #333333;
+}
 
 /* ---------- states ---------- */
 .us-state {
