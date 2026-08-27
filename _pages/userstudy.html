@@ -817,11 +817,31 @@ html:not([data-theme="dark"]) .us {
     var phoneV = document.getElementById('us-phone').value.trim();
     var email = document.getElementById('us-email').value.trim();
 
-    if (name.length < 2) return fail(msg, '이름을 입력해 주세요.');
-    if (!/^\d{1,3}$/.test(ageV) || +ageV < 1 || +ageV > 120) return fail(msg, '만 나이를 입력해 주세요.');
-    if (!gender) return fail(msg, '성별을 선택해 주세요.');
-    if (!/^01[016789]-?\d{3,4}-?\d{4}$/.test(phoneV)) return fail(msg, '휴대폰 번호를 정확히 입력해 주세요.');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return fail(msg, '이메일을 정확히 입력해 주세요.');
+    if (name.length < 2) {
+      document.getElementById('us-name').focus();
+      return fail(msg, '이름을 입력해 주세요.');
+    }
+
+    if (!/^\d{1,3}$/.test(ageV) || +ageV < 1 || +ageV > 120) {
+      document.getElementById('us-age').focus();
+      return fail(msg, '만 나이를 입력해 주세요.');
+    }
+
+    if (!gender) {
+      var genderEl = elMain.querySelector('input[name="gender"]:not(:disabled)');
+      if (genderEl) genderEl.focus();
+      return fail(msg, '성별을 선택해 주세요.');
+    }
+
+    if (!/^01[016789]-?\d{3,4}-?\d{4}$/.test(phoneV)) {
+      document.getElementById('us-phone').focus();
+      return fail(msg, '휴대폰 번호를 정확히 입력해 주세요.');
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      document.getElementById('us-email').focus();
+      return fail(msg, '이메일을 정확히 입력해 주세요.');
+    }
 
     /* Config 에 표시된 추가 질문은 모두 필수 */
     var qs = questionList();
