@@ -1068,7 +1068,7 @@ sitemap: false
           var tag = open && s.left > 1 ? s.left + '자리' : '';
           var stateText = open ? '' : (s.reason === 'past' ? ' 종료' : ' 마감');
           var topPx = (toMin(s.start) - start) * ppm;
-          var heightPx = Math.max(dur * ppm - 4, 24);
+          var heightPx = Math.max(dur * ppm - 4, 15);
           return '<button type="button" class="us-slot"' +
             ' style="--top:' + topPx + 'px;--slot-h:' + heightPx + 'px"' +
             ' data-day="' + esc(day.id) + '" data-slot="' + esc(s.id) + '" aria-pressed="false"' +
