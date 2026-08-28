@@ -1025,12 +1025,8 @@ sitemap: false
       return participant + questions;
     }
 
-    function schedule() {
-      return '<div class="us-h"><h3>시간 선택</h3></div>' +
-        '<div class="us-days">' + DATA.days.map(dayCard).join('') + '</div>';
-    }
-
-    function dayCard(day) {
+    /** 한 Day 의 슬롯들이 걸쳐 있는 시간 범위(분). 슬롯이 없으면 null. */
+    function dayRange(day) {
       var lo = Infinity, hi = -Infinity;
       day.dates.forEach(function (d) {
         d.slots.forEach(function (s) {
@@ -1038,9 +1034,31 @@ sitemap: false
           lo = Math.min(lo, t); hi = Math.max(hi, t + (s.duration || day.duration_min));
         });
       });
-      if (!isFinite(lo)) return '';
-      var start = Math.floor((lo - 15) / 30) * 30;
-      var end = Math.ceil((hi + 15) / 30) * 30;
+      if (!isFinite(lo)) return null;
+      return { start: Math.floor((lo - 15) / 30) * 30, end: Math.ceil((hi + 15) / 30) * 30 };
+    }
+
+    function schedule() {
+      var union = null;
+      DATA.days.forEach(function (day) {
+        var r = dayRange(day);
+        if (!r) return;
+        union = union
+          ? { start: Math.min(union.start, r.start), end: Math.max(union.end, r.end) }
+          : { start: r.start, end: r.end };
+      });
+      if (!union) return '';
+
+      return '<div class="us-h"><h3>시간 선택</h3></div>' +
+        '<div class="us-days">' + DATA.days.map(function (day) {
+          return dayCard(day, union);
+        }).join('') + '</div>';
+    }
+
+    function dayCard(day, axis) {
+      if (!dayRange(day)) return '';        // 슬롯이 하나도 없는 Day 는 그리지 않는다
+      var start = axis.start;
+      var end = axis.end;
       var range = end - start;
 
       var ppm = window.innerWidth <= 620 ? 0.55 : 0.65;
