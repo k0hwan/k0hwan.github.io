@@ -602,7 +602,7 @@ sitemap: false
     color: var(--ink-soft);
   }
 
-  .us-slot:hover:not(:disabled) {
+  .us-slot:hover:not(:disabled):not([aria-pressed="true"]) {
     border-color: var(--tint-70);
     background: var(--tint-18);
     transform: translateY(-1px);
